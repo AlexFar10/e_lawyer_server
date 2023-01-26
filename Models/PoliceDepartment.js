@@ -5,7 +5,6 @@ const PoliceSchema = new Schema({
     County: {
         type: String,
         required: true
-
     },
     City: {
         type: String,
