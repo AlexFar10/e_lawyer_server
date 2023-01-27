@@ -29,8 +29,7 @@ module.exports = {
                             });
                         } else {
                             const user = new User({
-                                Name: req.body.Name,
-                                Surname: req.body.Surname,
+                                Username: req.body.Username,
                                 Email: req.body.Email,
                                 Password: hash
                             });
