@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const createError = require('http-errors')
 
 const app = express()
-
+const cors = require('cors')
 mongoose
     .connect(
         'mongodb+srv://AlexFar10:8kjMXDgA7OsyVFWb@cluster0.wveau2u.mongodb.net/?retryWrites=true',
@@ -22,15 +22,7 @@ const Police = require('./Routes/PoliceDepartment')
 const Justice = require('./Routes/JusticeDepartment')
 const User = require('./Routes/User')
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*')
-    res.header('Access-Control-Allow-Headers', '*')
-    if (req.method === 'OPTIONS') {
-        res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, PATCH')
-        return res.status(200).json({})
-    }
-    next()
-})
+app.use(cors())
 
 app.use(express.json())
 app.use('/police', Police)
