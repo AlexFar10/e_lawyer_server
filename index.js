@@ -27,7 +27,15 @@ app.use(cors({
     optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
     credentials: true
 }))
-
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', 'http://localhost:3000')
+    res.header('Access-Control-Allow-Headers', 'http://localhost:3000')
+    if (req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'PUT, GET, POST, DELETE, PATCH')
+        return res.status(200).json({})
+    }
+    next()
+})
 
 app.use(express.json())
 app.use('/police', Police)
