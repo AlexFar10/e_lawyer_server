@@ -69,7 +69,7 @@ module.exports = {
     },
 
     loginUser: async (req, res, next) => {
-        User.find({ Username: req.body.Username })
+        User.find({ Email: req.body.Email })
             .exec()
             .then(user => {
                 if (user.length < 1) {
@@ -89,7 +89,7 @@ module.exports = {
                     if (result) {
                         const token = jwt.sign(
                             {
-                                Username: user[0].Username,
+                                Email: user[0].Email,
                                 id: req.params.id
                             },
                             env.JWT_KEY,
