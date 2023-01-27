@@ -21,7 +21,8 @@ mongoose
 const Police = require('./Routes/PoliceDepartment')
 const Justice = require('./Routes/JusticeDepartment')
 const User = require('./Routes/User')
-
+var cors = require('cors');
+app.use(cors())
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*')
     res.header('Access-Control-Allow-Headers', '*')
