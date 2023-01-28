@@ -73,7 +73,6 @@ module.exports = {
             .exec()
             .then(user => {
                 if (user.length < 1) {
-                    console.log("aici")
                     return res.status(401).json({
                         message: "Auth failed"
 
@@ -82,7 +81,6 @@ module.exports = {
                 }
                 bcrypt.compare(req.body.Password, user[0].Password, (err, result) => {
                     if (err) {
-                        console.log("sau aici")
                         return res.status(401).json({
                             message: "Auth failed"
                         });
