@@ -14,7 +14,7 @@ module.exports = {
     getUser: async (req, res, next) => { console.log("ok")
     res.send("ok")},
     createNewUser:  async (req, res, next) => {
-        User.find({ Email: req.body.Email })
+        User.find({ Username: req.body.Username })
             .exec()
             .then(user => {
                 if (user.length >= 1) {
@@ -73,15 +73,16 @@ module.exports = {
             .exec()
             .then(user => {
                 if (user.length < 1) {
-
+                    console.log("aici")
                     return res.status(401).json({
                         message: "Auth failed"
+
 
                     });
                 }
                 bcrypt.compare(req.body.Password, user[0].Password, (err, result) => {
                     if (err) {
-
+                        console.log("sau aici")
                         return res.status(401).json({
                             message: "Auth failed"
                         });
