@@ -30,7 +30,7 @@ module.exports = {
                         } else {
                             const user = new User({
                                 Name: req.body.Name,
-                                Surname: req.body.Surname,
+                                Surename: req.body.Surename,
                                 Email: req.body.Email,
                                 Password: hash
                             });
