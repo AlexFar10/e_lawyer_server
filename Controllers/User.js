@@ -14,7 +14,7 @@ module.exports = {
     getUser: async (req, res, next) => { console.log("ok")
     res.send("ok")},
     createNewUser:  async (req, res, next) => {
-        User.find({ Username: req.body.Username })
+        User.find({ Email: req.body.Email })
             .exec()
             .then(user => {
                 if (user.length >= 1) {
@@ -29,7 +29,8 @@ module.exports = {
                             });
                         } else {
                             const user = new User({
-                                Username: req.body.Username,
+                                Name: req.body.Name,
+                                Surname: req.body.Surname,
                                 Email: req.body.Email,
                                 Password: hash
                             });
@@ -69,7 +70,7 @@ module.exports = {
     },
 
     loginUser: async (req, res, next) => {
-        User.find({ Username: req.body.Username })
+        User.find({ Email: req.body.Email })
             .exec()
             .then(user => {
                 if (user.length < 1) {
@@ -88,7 +89,7 @@ module.exports = {
                     if (result) {
                         const token = jwt.sign(
                             {
-                                Username: user[0].Username,
+                                Email: user[0].Email,
                                 id: req.params.id
                             },
                             env.JWT_KEY,
