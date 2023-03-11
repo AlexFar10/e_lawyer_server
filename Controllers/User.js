@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt')
 const User = require('../Models/User');
 const mongosee = require("mongoose");
 const jwt = require("jsonwebtoken")
+const Product = require("../Models/PoliceDepartment");
 
 const env =
     {
@@ -11,8 +12,14 @@ const env =
     }
 
 module.exports = {
-    getUser: async (req, res, next) => { console.log("ok")
-    res.send("ok")},
+    getAllUsers: async (req, res, next) => {
+        try {
+            const result = await User.find({},{__v:0,_id:0})
+            res.send(result)
+        } catch (error) {
+            console.log(error.message)
+        }
+    },
     createNewUser:  async (req, res, next) => {
         User.find({ Email: req.body.Email })
             .exec()
