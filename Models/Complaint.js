@@ -1,167 +1,178 @@
 const mongoose = require('mongoose');
+const multer = require('multer');
+
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage });
 
 const formSchema = new mongoose.Schema({
     Name: {
         type: String,
-        required: true
+        required: true,
     },
     Surname: {
         type: String,
-        required: true
+        required: true,
     },
     Phone: {
         type: String,
-        required: true
+        required: true,
     },
     Email: {
         type: String,
-        required: true
+        required: true,
     },
     Adress: {
         type: String,
-        required: true
+        required: true,
     },
     PoliceName: {
         type: String,
-        required: true
+        required: true,
     },
     PoliceSurname: {
         type: String,
-        required: true
+        required: true,
     },
     PoliceRole: {
         type: String,
-        required: true
+        required: true,
     },
     PoliceInstitution: {
         type: String,
-        required: true
+        required: true,
     },
     EventPlace: {
         type: String,
-        required: true
+        required: true,
     },
     VerbalProcess: {
         type: String,
-        enum: ['DA', 'NU']
+        enum: ['DA', 'NU'],
     },
     SeriesVerbalProcess: {
         type: String,
-        required: true
+        required: true,
     },
     NumberVerbalProcess: {
         type: String,
-        required: true
+        required: true,
     },
     DateVerbalProcess: {
         type: String,
-        required: true
+        required: true,
     },
-
     HandingOutVerbalProcess: {
         type: String,
-        enum: ['PRIN INMABARE LA FATA LOCULUI', 'PRIN POSTA']
+        enum: ['PRIN INMABARE LA FATA LOCULUI', 'PRIN POSTA'],
     },
     DateOfHandingOutVerbalProcess: {
         type: String,
-        required: true
+        required: true,
     },
     DateOfEvent: {
         type: String,
-        required: true
+        required: true,
     },
     PayTheFine: {
         type: String,
-        enum: ['DA', 'NU']
+        enum: ['DA', 'NU'],
     },
     PayTheFineDocument: {
-        data: {
-            type: Buffer,
-            required: true
-        },
+        data: Buffer,
         contentType: {
             type: String,
-            required: true
-        }
+            required: true,
+            default: "application/pdf",
+        },
     },
     Options: {
         type: String,
-        enum: ['Doresc anularea amenzi pentru că sunt nevinovat iar amenda este abuzivă. Am documente şi martori care să ateste nevinovaţia mea', 'Doresc preschimbarea amenzii în avertisment pentru că deşi sunt vinovat, sunt la prima abatere contravenţională.', 'Doresc reducerea cuantumului amenzii pentru că amenda primită reprezintă maximul din cât mi se putea aplica sau este disproporţionată în raport de veniturile mele']
+        enum: [
+            'Doresc anularea amenzi pentru că sunt nevinovat iar amenda este abuzivă. Am documente şi martori care să ateste nevinovaţia mea',
+            'Doresc preschimbarea amenzii în avertisment pentru că deşi sunt vinovat, sunt la prima abatere contravenţională.',
+            'Doresc reducerea cuantumului amenzii pentru că amenda primită reprezintă maximul din cât mi se putea aplica sau este disproporţionată în raport de veniturile mele'
+        ],
     },
     DescriptionOfTheEventInVerbalProcess: {
         type: String,
-        required: true
+        required: true,
     },
     DescriptionOfTheEventInPersonalOpinion: {
         type: String,
-        required: true
+        required: true,
     },
     LawNumberEvent: {
         type: String,
-        required: true
+        required: true,
     },
     LawParagraphEvent: {
         type: String,
-        required: true
+        required: true,
     },
     LawRuleEvent: {
         type: String,
-        required: true
+        required: true,
     },
     LawNumberPay: {
         type: String,
-        required: true
+        required: true,
     },
     LawParagraphPay: {
         type: String,
-        required: true
+        required: true,
     },
     LawRulePay: {
         type: String,
-        required: true
+        required: true,
     },
     Witnesses: {
         type: String,
-        enum: ['DA', 'NU']
+        enum: ['DA', 'NU'],
     },
     IncomeStatemant: {
         data: {
             type: Buffer,
-            required: true
+            required: true,
         },
         contentType: {
             type: String,
-            required: true
-        }
+            required: true,
+            default: 'application/pdf',
+        },
     },
     MedicalCertificate: {
         data: {
             type: Buffer,
-            required: true
+            required: true,
         },
         contentType: {
             type: String,
-            required: true
-        }
+            required: true,
+            default: 'application/pdf',
+        },
     },
     OtherDocuments: {
         data: {
             type: Buffer,
-            required: true
+            required: true,
         },
         contentType: {
             type: String,
-            required: true
-        }
+            required: true,
+            default: 'application/pdf',
+        },
     },
     Judge: {
         type: String,
-        enum: ['Doresc să particip la şedinţele de judecată', 'Doresc judecarea cererii de chemare în judecată în lipsa mea']
+        enum: [
+            'Doresc să particip la şedinţele de judecată',
+            'Doresc judecarea cererii de chemare în judecată în lipsa mea',
+        ],
     },
     Lawyer: {
         type: String,
-        enum: ['DA', 'NU']
-    }
+        enum: ['DA', 'NU'],
+    },
 });
 
 const Form = mongoose.model('Form', formSchema);
