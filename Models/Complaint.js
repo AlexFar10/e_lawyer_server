@@ -77,14 +77,6 @@ const formSchema = new mongoose.Schema({
         type: String,
         enum: ['DA', 'NU'],
     },
-    PayTheFineDocument: {
-        data: Buffer,
-        contentType: {
-            type: String,
-            required: true,
-            default: "application/pdf",
-        },
-    },
     Options: {
         type: String,
         enum: [
@@ -128,39 +120,6 @@ const formSchema = new mongoose.Schema({
     Witnesses: {
         type: String,
         enum: ['DA', 'NU'],
-    },
-    IncomeStatemant: {
-        data: {
-            type: Buffer,
-            required: true,
-        },
-        contentType: {
-            type: String,
-            required: true,
-            default: 'application/pdf',
-        },
-    },
-    MedicalCertificate: {
-        data: {
-            type: Buffer,
-            required: true,
-        },
-        contentType: {
-            type: String,
-            required: true,
-            default: 'application/pdf',
-        },
-    },
-    OtherDocuments: {
-        data: {
-            type: Buffer,
-            required: true,
-        },
-        contentType: {
-            type: String,
-            required: true,
-            default: 'application/pdf',
-        },
     },
     Judge: {
         type: String,
