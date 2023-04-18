@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const env = {
-    JWT_KEY: 'super_secret'
+    JWT_KEY: 'super-secret'
 };
 
 module.exports = {
