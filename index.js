@@ -21,7 +21,7 @@ mongoose
 const Police = require('./Routes/PoliceDepartment')
 const Justice = require('./Routes/JusticeDepartment')
 const User = require('./Routes/User')
-const Form = require("./Routes/Complaint");
+//const Form = require("./Routes/Complaint");
 var cors = require('cors');
 
 app.use(cors({
@@ -34,7 +34,7 @@ app.use(express.json())
 app.use('/police', Police)
 app.use('/justice', Justice)
 app.use('/user', User)
-app.use('/form', Form)
+//app.use('/form', Form)
 
 app.use((req, res, next) => {
     next(createError(404, 'Not found'))
