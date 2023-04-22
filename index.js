@@ -22,6 +22,7 @@ const Police = require('./Routes/PoliceDepartment')
 const Justice = require('./Routes/JusticeDepartment')
 const User = require('./Routes/User')
 //const Form = require("./Routes/Complaint");
+const Doc = require("./Routes/uploadRoute")
 var cors = require('cors');
 
 app.use(cors({
@@ -35,6 +36,7 @@ app.use('/police', Police)
 app.use('/justice', Justice)
 app.use('/user', User)
 //app.use('/form', Form)
+app.use('/uploads', Doc)
 
 app.use((req, res, next) => {
     next(createError(404, 'Not found'))
