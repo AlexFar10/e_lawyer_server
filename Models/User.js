@@ -16,13 +16,13 @@ const UserSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        validate: {
+      /*  validate: {
             validator: (email) => {
                 const schema = Joi.string().email();
                 return schema.validate(email).error === null;
             },
             message: 'Invalid email format',
-        },
+        },*/
     },
     Password: {
         type: String,
