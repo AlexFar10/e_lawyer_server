@@ -25,12 +25,6 @@ module.exports = {
                 });
             }
 
-            let role = "client";
-            if (req.body.Email.endsWith("@elawyer_lawyer.com")) {
-                role = "lawyer";
-            } else if (req.body.Email.endsWith("@elawyer_admin.com")) {
-                role = "admin";
-            }
 
             const hashedPassword = await bcrypt.hash(req.body.Password, 10);
 
@@ -39,7 +33,7 @@ module.exports = {
                 Surname: req.body.Surname,
                 Email: req.body.Email,
                 Password: hashedPassword,
-                role: role,
+                Role: req.body.Role || 'client'
             });
 
             await newUser.save();
@@ -84,19 +78,12 @@ module.exports = {
                 });
             }
 
-            let role;
-            if (user.Email.endsWith("@elawyer_lawyer.com")) {
-                role = "lawyer";
-            } else if (user.Email.endsWith("@elawyer_admin.com")) {
-                role = "admin";
-            } else {
-                role = "client";
-            }
 
             const token = jwt.sign(
                 {
                     userId: user._id,
-                    role: role
+                    role: user.Role
+
                 },
                 env.JWT_KEY,
                 {

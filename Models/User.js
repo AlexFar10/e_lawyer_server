@@ -42,7 +42,12 @@ const UserSchema = new Schema({
          //   },
         //    message: 'Invalid password format',
        // },
-    }
+    },
+    Role: {
+        type: String,
+        enum: ['client', 'avocat','admin'],
+        default:'client'
+    },
 });
 
 const User = mongoose.model('user', UserSchema);
