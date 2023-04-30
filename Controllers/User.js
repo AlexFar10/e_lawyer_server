@@ -9,7 +9,30 @@ const env = {
 module.exports = {
     getAllUsers: async (req, res, next) => {
         try {
-            const result = await User.find({}, { __v: 0, _id: 0 })
+            const result = await User.find({}, {})
+            res.send(result)
+        } catch (error) {
+            console.log(error.message)
+        }
+    },
+    getUserById: async (req, res, next) => {
+        try {
+            const result = await User.findOne({ _id: req.params.id }, { __v: 0, _id: 0 })
+            if (!result) {
+                return res.status(404).send({ message: 'User not found' })
+            }
+            res.send(result)
+        } catch (error) {
+            console.log(error.message)
+        }
+    },
+    getUserByNameAndSurname: async (req, res, next) => {
+        try {
+            const { firstName, lastName } = req.params
+            const result = await User.findOne({ firstName, lastName }, { __v: 0, _id: 0 })
+            if (!result) {
+                return res.status(404).send({ message: 'User not found' })
+            }
             res.send(result)
         } catch (error) {
             console.log(error.message)
@@ -34,8 +57,8 @@ module.exports = {
                 Email: req.body.Email,
                 Password: hashedPassword,
                 Role: req.body.Role || 'client'
-            });
 
+            });
             await newUser.save();
 
             return res.status(201).json({
@@ -92,7 +115,10 @@ module.exports = {
             );
             res.status(200).json({
                 message: "Auth successful",
-                token: token
+                token: token,
+                role: user.Role,
+                id: user._id
+
             });
         } catch (err) {
             console.log(err);

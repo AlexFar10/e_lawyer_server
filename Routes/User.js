@@ -11,7 +11,12 @@ router.post('/login', UserController.loginUser);
 
 //Delete a  User
 router.delete('/:id', UserController.deleteUser);
+router.get('/:id', UserController.getUserById);
 
 router.get('/', UserController.getAllUsers)
+
+router.get('/:firstName/:lastName', UserController.getUserByNameAndSurname)
+
+
 
 module.exports = router;
