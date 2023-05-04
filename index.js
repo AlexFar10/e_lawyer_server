@@ -1,14 +1,16 @@
 const express = require('express')
 const mongoose = require('mongoose')
+require('dotenv').config()
 const createError = require('http-errors')
-
+const path = require('path');
 const app = express()
-
+app.set('views', path.join(__dirname, 'views'));
+app.set("view engine", "ejs");
 mongoose
     .connect(
-        'mongodb+srv://AlexFar10:8kjMXDgA7OsyVFWb@cluster0.wveau2u.mongodb.net/?retryWrites=true',
+        process.env.DB_CONNECT,
         {
-            dbName: 'RestAPI_elawyer',
+            dbName:process.env.DB_Name ,
             useNewUrlParser: true,
             useUnifiedTopology: true,
         }
@@ -29,8 +31,9 @@ app.use(cors({
     origin: 'http://localhost:3001',
     methods: ['GET', 'POST', 'PUT', 'DELETE','PATCH']
 }))
+app.use(express.urlencoded({ extended: false }));
 
-
+app.use(express.urlencoded({ extended: false }));
 app.use(express.json())
 app.use('/police', Police)
 app.use('/justice', Justice)
