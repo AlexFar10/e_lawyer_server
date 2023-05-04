@@ -10,7 +10,7 @@ mongoose
     .connect(
         process.env.DB_CONNECT,
         {
-            dbName:process.env.DB_Name ,
+            dbName:process.env.DB_NAME ,
             useNewUrlParser: true,
             useUnifiedTopology: true,
         }
