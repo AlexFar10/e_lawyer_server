@@ -10,7 +10,6 @@ const Justice = require('./Routes/JusticeDepartment');
 const User = require('./Routes/User');
 // const Form = require("./Routes/Complaint");
 const Doc = require("./Routes/uploadRoute");
-const multer = require("multer");
 const file = require("./Routes/FileRoutes")
 const app = express();
 
