@@ -133,6 +133,10 @@ const complain = new mongoose.Schema({
         enum: ['DA', 'NU'],
         default:'DA'
     },
+    UserID: {
+        type: String,
+        required: true,
+    }
 });
 
 

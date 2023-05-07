@@ -1,4 +1,41 @@
 const Upload = require("../Models/Complain");
+exports.getLawyerComplain = async (req, res) => {
+    try {
+        let query = {};
+
+        if (req.body.Pay === 'DA') {
+            query = { Pay: 'DA' };
+        }
+
+        const uploads = await Upload.find({ UserId: req.params.userId, ...query });
+
+        return res.status(200).json({
+            success: true,
+            data: uploads,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            error: "Server Error",
+        });
+    }
+};
+exports.getComplainByUserId = async (req, res) => {
+    try {
+
+        const uploads = await Upload.find({ UserId: req.params.userId});
+
+        return res.status(200).json({
+            success: true,
+            data: uploads,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            error: "Server Error",
+        });
+    }
+};
 exports.getComplainById = async (req, res) => {
     try {
         const upload = await Upload.findById(req.params.id);
