@@ -4,14 +4,13 @@ const createError = require('http-errors');
 const path = require('path');
 const cors = require('cors');
 require('dotenv').config();
+const app = express();
 
 const Police = require('./Routes/PoliceDepartment');
 const Justice = require('./Routes/JusticeDepartment');
 const User = require('./Routes/User');
-// const Form = require("./Routes/Complaint");
-const Doc = require("./Routes/uploadRoute");
-const file = require("./Routes/FileRoutes")
-const app = express();
+const Complain = require("./Routes/Complain");
+
 
 // Set view engine and views directory
 app.set('views', path.join(__dirname, 'views'));
@@ -44,9 +43,7 @@ mongoose.connect(process.env.DB_CONNECT, {
 app.use('/police', Police);
 app.use('/justice', Justice);
 app.use('/user', User);
-// app.use('/form', Form);
-app.use('/uploads', Doc);
-app.use('/doc',file);
+app.use('/complain', Complain);
 // 404 error handler
 app.use((req, res, next) => {
     next(createError(404, 'Not found'));

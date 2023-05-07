@@ -1,7 +1,5 @@
-const Upload = require("../Models/uploadSchema");
-const fs = require("fs");
-const path = require("path");
-exports.getUploadsById = async (req, res) => {
+const Upload = require("../Models/Complain");
+exports.getComplainById = async (req, res) => {
     try {
         const upload = await Upload.findById(req.params.id);
         return res.status(200).json({
@@ -16,7 +14,7 @@ exports.getUploadsById = async (req, res) => {
     }
 };
 
-exports.createUpload = async (req, res) => {
+exports.createComplain = async (req, res) => {
     try {
         const upload = new Upload({
             Name:req.body.Name,
@@ -49,10 +47,7 @@ exports.createUpload = async (req, res) => {
             Witnesses:req.body.Witnesses,
             Judge:req.body.Judge,
             Lawyer:req.body.Lawyer,
-            Document: req.files.map((file) => ({
-                fileName: file.filename,
-                filePath: file.path,
-            })),
+            Pay:req.body.Pay || 'NU'
         });
         await upload.save();
         return res.status(201).json({
@@ -65,38 +60,20 @@ exports.createUpload = async (req, res) => {
             error: "Server Error",
         });
     }
+
 };
-
-
-exports.updateUploadById = async (req, res) => {
+exports.updateComplain = async (req, res) => {
     try {
-        const { Name, Surname, Document } = req.body;
-        const upload = await Upload.findByIdAndUpdate(
-            req.params.id,
-            { Name, Surname, Document },
-            { new: true }
-        );
-        return res.status(200).json({
-            success: true,
-            data: upload,
+        const upload = await Upload.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true,
         });
-    } catch (error) {
-        return res.status(500).json({
-            success: false,
-            error: "Server Error",
-        });
-    }
-};
 
-
-exports.deleteUploadById = async (req, res) => {
-    try {
-        const upload = await Upload.findByIdAndRemove(req.params.id);
-
-        // delete file from uploads folder
-        for (let i = 0; i < upload.Document.length; i++) {
-            const filePath = upload.Document[i].filePath;
-            fs.unlinkSync(filePath);
+        if (!upload) {
+            return res.status(404).json({
+                success: false,
+                error: "Upload not found",
+            });
         }
 
         return res.status(200).json({
@@ -110,3 +87,46 @@ exports.deleteUploadById = async (req, res) => {
         });
     }
 };
+
+exports.deleteComplain = async (req, res) => {
+    try {
+        const upload = await Upload.findByIdAndDelete(req.params.id);
+
+        if (!upload) {
+            return res.status(404).json({
+                success: false,
+                error: "Upload not found",
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: {},
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            error: "Server Error",
+        });
+    }
+};
+
+exports.getComplain = async (req, res) => {
+    try {
+        const uploads = await Upload.find();
+
+        return res.status(200).json({
+            success: true,
+            data: uploads,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            error: "Server Error",
+        });
+    }
+};
+
+
+
+

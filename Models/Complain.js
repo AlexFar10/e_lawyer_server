@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const uploadSchema = new mongoose.Schema({
+const complain = new mongoose.Schema({
     Name: {
         type: String,
         required: true,
@@ -128,21 +128,14 @@ const uploadSchema = new mongoose.Schema({
         type: String,
         enum: ['DA', 'NU'],
     },
-    Document: [
-        {
-            fileName: {
-                type: String,
-                required: true,
-            },
-            filePath: {
-                type: String,
-                required: true,
-            },
-        },
-    ],
+    Pay: {
+        type: String,
+        enum: ['DA', 'NU'],
+        default:'DA'
+    },
 });
 
 
-const Upload = mongoose.model("Upload", uploadSchema);
+const Upload = mongoose.model("Upload", complain);
 
 module.exports = Upload;
