@@ -3,7 +3,7 @@ const multer = require("multer");
 const {
     uploadFiles,
     getFiles,
-    deleteFile
+    deleteFile, getFilesByUserId
 } = require('../Controllers/File');
 const {updateFile} = require("../Controllers/File");
 
@@ -13,15 +13,14 @@ const upload = multer({ dest: "uploads/" });
 
 
 // Multiple files upload route
-router.post('/file', upload.array('file'), uploadFiles);
+router.post('/', upload.array('file'), uploadFiles);
 
 
-router.get('/file', getFiles);
-
-router.put('/file/:id', updateFile);
+router.get('/', getFiles);
+router.get('/user/:id', getFilesByUserId);
 
 // Delete file route
-router.delete('/file/:id', deleteFile);
+router.delete('/:id', deleteFile);
 
 
 module.exports = router;
