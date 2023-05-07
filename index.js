@@ -10,7 +10,7 @@ const Police = require('./Routes/PoliceDepartment');
 const Justice = require('./Routes/JusticeDepartment');
 const User = require('./Routes/User');
 const Complain = require("./Routes/Complain");
-
+const File = require("./Routes/File");
 
 // Set view engine and views directory
 app.set('views', path.join(__dirname, 'views'));
@@ -44,6 +44,7 @@ app.use('/police', Police);
 app.use('/justice', Justice);
 app.use('/user', User);
 app.use('/complain', Complain);
+app.use('/file', File);
 // 404 error handler
 app.use((req, res, next) => {
     next(createError(404, 'Not found'));
