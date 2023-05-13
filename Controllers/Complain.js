@@ -23,7 +23,7 @@ exports.getLawyerComplain = async (req, res) => {
 exports.getComplainByUserId = async (req, res) => {
     try {
 
-        const uploads = await Upload.find({ UserId: req.params.userId});
+        const uploads = await Upload.find({ UserId: req.params.id});
 
         return res.status(200).json({
             success: true,
@@ -84,7 +84,8 @@ exports.createComplain = async (req, res) => {
             Witnesses:req.body.Witnesses,
             Judge:req.body.Judge,
             Lawyer:req.body.Lawyer,
-            Pay:req.body.Pay || 'NU'
+            Pay:req.body.Pay || 'NU',
+            UserID:req.body.UserID
         });
         await upload.save();
         return res.status(201).json({

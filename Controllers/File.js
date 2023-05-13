@@ -9,6 +9,21 @@ const getFiles = async (req, res) => {
         res.status(500).json({ error: "Failed to retrieve files" });
     }
 };
+const getDownloadFiles = async (req, res) => {
+    try {
+        const filename = req.params.filename;
+        const file = await File.findOne({ filename });
+
+        if (!file) {
+            return res.status(404).json({ error: 'File not found' });
+        }
+
+        const filePath = file.filePath;
+        res.download(filePath);
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to download file' });
+    }
+};
 
 const deleteFile = async (req, res) => {
     try {
@@ -41,7 +56,6 @@ const uploadFiles = async (req, res) => {
 
             files.forEach((file) => {
                 const { originalname, path } = file;
-
                 const newFile = new File({
                     filename: originalname,
                     filePath: path,
@@ -66,7 +80,8 @@ const uploadFiles = async (req, res) => {
 
 const getFilesByUserId = async (req, res) => {
     try {
-        const userId = req.params.userId; // Get the user ID from the route parameter
+        const userId = req.params.id; // Get the user ID from the route parameter
+        console.log(userId)
         const files = await File.find({ UserID: userId }); // Find files matching the provided user ID
         res.json(files);
     } catch (error) {
@@ -79,4 +94,5 @@ module.exports = {
     deleteFile,
     uploadFiles,
     getFilesByUserId,
+    getDownloadFiles
 };

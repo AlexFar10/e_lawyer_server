@@ -178,7 +178,7 @@ module.exports = {
         const secret = process.env.JWT_KEY + oldUser.password;
         try {
             const verify = jwt.verify(token, secret);
-            res.render("index", { email: verify.email, status: "Not Verified" });
+            res.render("../views/index", { email: verify.email, status: "Not Verified" });
         } catch (error) {
             console.log(error);
             res.send("Not Verified");
@@ -207,7 +207,7 @@ module.exports = {
                 }
             );
 
-            res.render("index", { email: verify.email, status: "verified" });
+            res.render("../views/index", { email: verify.email, status: "verified" });
         } catch (error) {
             console.log(error);
             res.json({ status: "Something Went Wrong" });
