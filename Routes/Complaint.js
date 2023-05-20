@@ -2,7 +2,7 @@ const express = require("express");
 const uploadController = require("../Controllers/Complaint");
 const router = express.Router();
 
-router.get("/ID/:id", uploadController.getComplainById);
+router.get("/id/:id", uploadController.getComplainById);
 router.get("/userid/:id", uploadController.getComplainByUserId);
 router.get("/lawyer/:id", uploadController.getLawyerComplain);
 router.post("/", uploadController.createComplain);
