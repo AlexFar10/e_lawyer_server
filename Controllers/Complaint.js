@@ -1,4 +1,4 @@
-const Upload = require("../Models/Complain");
+const Complaint = require("../Models/Complaint");
 exports.getLawyerComplain = async (req, res) => {
     try {
         let query = {};
@@ -7,12 +7,9 @@ exports.getLawyerComplain = async (req, res) => {
             query = { Pay: 'DA' };
         }
 
-        const uploads = await Upload.find({ UserId: req.params.userId, ...query });
+        const complaint = await Complaint.find({ UserId: req.params.userId, ...query });
 
-        return res.status(200).json({
-            success: true,
-            data: uploads,
-        });
+        return res.send(complaint)
     } catch (error) {
         return res.status(500).json({
             success: false,
@@ -23,12 +20,9 @@ exports.getLawyerComplain = async (req, res) => {
 exports.getComplainByUserId = async (req, res) => {
     try {
 
-        const uploads = await Upload.find({ UserId: req.params.id});
+        const complaint = await Complaint.find({ UserID: req.params.id});
 
-        return res.status(200).json({
-            success: true,
-            data: uploads,
-        });
+        return res.send(complaint)
     } catch (error) {
         return res.status(500).json({
             success: false,
@@ -38,11 +32,8 @@ exports.getComplainByUserId = async (req, res) => {
 };
 exports.getComplainById = async (req, res) => {
     try {
-        const upload = await Upload.findById(req.params.id);
-        return res.status(200).json({
-            success: true,
-            data: upload,
-        });
+        const complaint = await Complaint.findById(req.params.id);
+        return res.send(complaint)
     } catch (error) {
         return res.status(500).json({
             success: false,
@@ -53,12 +44,12 @@ exports.getComplainById = async (req, res) => {
 
 exports.createComplain = async (req, res) => {
     try {
-        const upload = new Upload({
+        const complaint = new Complaint({
             Name:req.body.Name,
             Surname:req.body.Surname,
             Phone:req.body.Phone,
             Email:req.body.Email,
-            Adress:req.body.Adress,
+            Address:req.body.Address,
             PoliceName:req.body.PoliceName,
             PoliceSurname:req.body.PoliceSurname,
             PoliceRole:req.body.PoliceRole,
@@ -85,39 +76,39 @@ exports.createComplain = async (req, res) => {
             Judge:req.body.Judge,
             Lawyer:req.body.Lawyer,
             Pay:req.body.Pay || 'NU',
-            UserID:req.body.UserID
+            UserID:req.body.UserID,
+            Title:req.body.Title,
+            Observation:req.body.Observation ||'',
+            Status:req.body.Status || 'Asteptare'
+
         });
-        await upload.save();
+        await complaint.save();
         return res.status(201).json({
-            success: true,
-            data: upload,
+            message: "Complaint created",
         });
     } catch (error) {
+        console.log(error);
         return res.status(500).json({
-            success: false,
-            error: "Server Error",
+            error: error.message,
         });
     }
 
 };
 exports.updateComplain = async (req, res) => {
     try {
-        const upload = await Upload.findByIdAndUpdate(req.params.id, req.body, {
+        const complaint = await Complaint.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
             runValidators: true,
         });
 
-        if (!upload) {
+        if (!complaint) {
             return res.status(404).json({
                 success: false,
                 error: "Upload not found",
             });
         }
 
-        return res.status(200).json({
-            success: true,
-            data: upload,
-        });
+        return res.send(complaint)
     } catch (error) {
         return res.status(500).json({
             success: false,
@@ -128,12 +119,12 @@ exports.updateComplain = async (req, res) => {
 
 exports.deleteComplain = async (req, res) => {
     try {
-        const upload = await Upload.findByIdAndDelete(req.params.id);
+        const complaint = await Complaint.findByIdAndDelete(req.params.id);
 
-        if (!upload) {
+        if (!complaint) {
             return res.status(404).json({
                 success: false,
-                error: "Upload not found",
+                error: "Complaint not found",
             });
         }
 
@@ -151,12 +142,9 @@ exports.deleteComplain = async (req, res) => {
 
 exports.getComplain = async (req, res) => {
     try {
-        const uploads = await Upload.find();
+        const complaint = await Complaint.find();
 
-        return res.status(200).json({
-            success: true,
-            data: uploads,
-        });
+        return res.send(complaint)
     } catch (error) {
         return res.status(500).json({
             success: false,

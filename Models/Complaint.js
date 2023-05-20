@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const complain = new mongoose.Schema({
+const complaint = new mongoose.Schema({
     Name: {
         type: String,
         required: true,
@@ -17,7 +17,7 @@ const complain = new mongoose.Schema({
         type: String,
         required: true,
     },
-    Adress: {
+    Address: {
         type: String,
         required: true,
     },
@@ -136,10 +136,24 @@ const complain = new mongoose.Schema({
     UserID: {
         type: String,
         required: true,
-    }
+    },
+    Title: {
+        type: String,
+        required: true,
+    },
+    Observations: {
+        type: String,
+        default:''
+
+    },
+    Status: {
+        type: String,
+        enum: ['Aprobata', 'Respinsa', 'Prelucrare','Asteptare'],
+        default:'Asteptare'
+    },
 });
 
 
-const Upload = mongoose.model("Upload", complain);
+const Complaint = mongoose.model("Complaint", complaint);
 
-module.exports = Upload;
+module.exports = Complaint;
