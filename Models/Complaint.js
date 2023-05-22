@@ -59,7 +59,7 @@ const complaint = new mongoose.Schema({
     },
     HandingOutVerbalProcess: {
         type: String,
-        enum: ['PRIN INMABARE LA FATA LOCULUI', 'PRIN POSTA'],
+        enum: ['PRIN INMANARE LA FATA LOCULUI', 'PRIN POSTA'],
     },
     DateOfHandingOutVerbalProcess: {
         type: String,

@@ -14,6 +14,36 @@ module.exports = {
             console.log(error.message)
         }
     },
+    updateUsers: async (req, res, next) => {
+        try {
+            const userId = req.params.id;
+            const updatedData = req.body;
+            const existingUser = await User.findById(userId);
+            if (!existingUser) {
+                return res.status(404).json({
+                    message: "User not found",
+                });
+            }
+
+// Update the user fields
+            existingUser.Name = updatedData.Name || existingUser.Name;
+            existingUser.Surname = updatedData.Surname || existingUser.Surname;
+            existingUser.Email = updatedData.Email || existingUser.Email;
+            existingUser.Role = updatedData.Role || existingUser.Role;
+
+// Save the updated user
+            await existingUser.save();
+
+            return res.status(200).json({
+                message: "User updated",
+            });
+        } catch (error) {
+            console.log(error);
+            return res.status(500).json({
+                error: error.message,
+            });
+        }
+    },
     getUserById: async (req, res, next) => {
         try {
             const result = await User.findOne({ _id: req.params.id }, { __v: 0, _id: 0 })
