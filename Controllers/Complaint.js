@@ -75,11 +75,11 @@ exports.createComplain = async (req, res) => {
             Witnesses:req.body.Witnesses,
             Judge:req.body.Judge,
             Lawyer:req.body.Lawyer,
-            Pay:req.body.Pay || 'NU',
+            Pay:req.body.Pay ,
             UserID:req.body.UserID,
             Title:req.body.Title,
-            Observation:req.body.Observation ||'',
-            Status:req.body.Status || 'Asteptare'
+            Observations:req.body.Observations ,
+            Status:req.body.Status
 
         });
         await complaint.save();
