@@ -25,13 +25,11 @@ module.exports = {
                 });
             }
 
-// Update the user fields
             existingUser.Name = updatedData.Name || existingUser.Name;
             existingUser.Surname = updatedData.Surname || existingUser.Surname;
             existingUser.Email = updatedData.Email || existingUser.Email;
             existingUser.Role = updatedData.Role || existingUser.Role;
 
-// Save the updated user
             await existingUser.save();
 
             return res.status(200).json({
@@ -49,6 +47,17 @@ module.exports = {
             const result = await User.findOne({ _id: req.params.id }, { __v: 0, _id: 0 })
             if (!result) {
                 return res.status(404).send({ message: 'User not found' })
+            }
+            res.send(result)
+        } catch (error) {
+            console.log(error.message)
+        }
+    },
+    getUserByClient: async (req, res, next) => {
+        try {
+            const result = await User.find({ Role: 'client' });
+            if (!result) {
+                return res.status(404).send({ message: 'No users with the role "client" found' })
             }
             res.send(result)
         } catch (error) {
