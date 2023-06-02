@@ -17,7 +17,39 @@ const complaint = new mongoose.Schema({
         type: String,
         required: true,
     },
-    Address: {
+    CIseries: {
+        type: String,
+        required: true,
+    },
+    CInr: {
+        type: String,
+        required: true,
+    },
+    CNP: {
+        type: String,
+        required: true,
+    },
+    City: {
+        type: String,
+        required: true,
+    },
+    County: {
+        type: String,
+        required: true,
+    },
+    Street: {
+        type: String,
+        required: true,
+    },
+    Bl: {
+        type: String,
+        required: true,
+    },
+    Sc: {
+        type: String,
+        required: true,
+    },
+    Ap: {
         type: String,
         required: true,
     },
@@ -29,11 +61,11 @@ const complaint = new mongoose.Schema({
         type: String,
         required: true,
     },
-    PoliceRole: {
+    PoliceInstitution: {
         type: String,
         required: true,
     },
-    PoliceInstitution: {
+    PoliceAdr: {
         type: String,
         required: true,
     },
@@ -59,7 +91,7 @@ const complaint = new mongoose.Schema({
     },
     HandingOutVerbalProcess: {
         type: String,
-        enum: ['PRIN INMANARE LA FATA LOCULUI', 'PRIN POSTA'],
+        enum: ['PRIN ÎNMÂNARE LA FAȚA LOCULUI', 'PRIN POȘTĂ'],
     },
     DateOfHandingOutVerbalProcess: {
         type: String,
@@ -76,7 +108,7 @@ const complaint = new mongoose.Schema({
     Options: {
         type: String,
         enum: [
-            'Doresc anularea amenzi pentru că sunt nevinovat iar amenda este abuzivă. Am documente şi martori care să ateste nevinovaţia mea',
+            'Doresc anularea amenzii pentru că sunt nevinovat iar amenda este abuzivă. Am documente şi martori care să ateste nevinovaţia mea',
             'Doresc preschimbarea amenzii în avertisment pentru că deşi sunt vinovat, sunt la prima abatere contravenţională.',
             'Doresc reducerea cuantumului amenzii pentru că amenda primită reprezintă maximul din cât mi se putea aplica sau este disproporţionată în raport de veniturile mele'
         ],
@@ -117,6 +149,10 @@ const complaint = new mongoose.Schema({
         type: String,
         enum: ['DA', 'NU'],
     },
+    WitnessesData: {
+        type: String,
+        required: true,
+    },
     Judge: {
         type: String,
         enum: [
@@ -128,10 +164,13 @@ const complaint = new mongoose.Schema({
         type: String,
         enum: ['DA', 'NU'],
     },
-    Pay: {
+    Accept: {
         type: String,
         enum: ['DA', 'NU'],
-        default:'DA'
+    },
+    Pay: {
+        type: String,
+        enum: ['DA', 'NU']
     },
     UserID: {
         type: String,
@@ -148,8 +187,8 @@ const complaint = new mongoose.Schema({
     },
     Status: {
         type: String,
-        enum: ['Aprobata', 'Respinsa', 'Prelucrare','Asteptare'],
-        default:'Asteptare'
+        enum: ['Aprobată', 'Respinsă', 'În prelucrare','În așteptare'],
+        default:'Aprobată'
     },
 });
 
