@@ -170,17 +170,17 @@ module.exports = {
             var transporter = nodemailer.createTransport({
                 service: "gmail",
                 auth: {
-                    user: "alexandru.farcas01@e-uvt.ro",
-                    pass: "yhsdthwrleknuqri"
+                    user: "UVTeLawyer23@gmail.com",
+                    pass: "tghnoepsuvembcvz"
                 },
                 tls: {
                     rejectUnauthorized: false
                 }
             });
             var mailOptions = {
-                from: "alexandru.farcas01@e-uvt.ro",
+                from: "UVTeLawyer23@gmail.com",
                 to: email,
-                subject: "Password Reset",
+                subject: "Password Reset - eLawyer",
                 text: link,
             };
 
