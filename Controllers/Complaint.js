@@ -1,4 +1,5 @@
 const Complaint = require("../Models/Complaint");
+const User = require("../Models/User");
 exports.getLawyerComplain = async (req, res) => {
     try {
         let query = {};
@@ -116,7 +117,28 @@ exports.updateComplain = async (req, res) => {
         });
     }
 };
+exports.updateComplainByUserId = async (req, res) => {
+    try {
+        const complaint = await Complaint.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true,
+        });
 
+        if (!complaint) {
+            return res.status(404).json({
+                success: false,
+                error: "Upload not found",
+            });
+        }
+
+        return res.send(complaint)
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            error: "Server Error",
+        });
+    }
+};
 exports.deleteComplain = async (req, res) => {
     try {
         const complaint = await Complaint.findByIdAndDelete(req.params.id);

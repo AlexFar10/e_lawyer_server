@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken")
 require('dotenv').config()
 var nodemailer = require("nodemailer");
 
-
 module.exports = {
     getAllUsers: async (req, res, next) => {
         try {
@@ -47,17 +46,6 @@ module.exports = {
             const result = await User.findOne({ _id: req.params.id }, { __v: 0, _id: 0 })
             if (!result) {
                 return res.status(404).send({ message: 'User not found' })
-            }
-            res.send(result)
-        } catch (error) {
-            console.log(error.message)
-        }
-    },
-    getUserByClient: async (req, res, next) => {
-        try {
-            const result = await User.find({ Role: 'client' });
-            if (!result) {
-                return res.status(404).send({ message: 'No users with the role "client" found' })
             }
             res.send(result)
         } catch (error) {
@@ -178,7 +166,7 @@ module.exports = {
                 expiresIn: "5m"
             });
             //console.log(email);
-            const link = `http://localhost:3000/reset-password/${oldUser._id}/${token}`;
+            const link = `http://localhost:3001/reset-password/${oldUser._id}/${token}`;
             var transporter = nodemailer.createTransport({
                 service: "gmail",
                 auth: {
@@ -207,50 +195,32 @@ module.exports = {
         } catch (error) { }
     },
 
-    getResetPassword: async (req, res, next) => {
-        const { id, token } = req.params;
-        console.log(req.params);
-        const oldUser = await User.findOne({ _id: id });
-        if (!oldUser) {
-            return res.json({ status: "User Not Exists!!" });
-        }
-        const secret = process.env.JWT_KEY + oldUser.password;
-        try {
-            const verify = jwt.verify(token, secret);
-            res.render("../views/index", { email: verify.email, status: "Not Verified" });
-        } catch (error) {
-            console.log(error);
-            res.send("Not Verified");
-        }
-    },
+
     postResetPassword: async (req, res, next) => {
-        const { id, token } = req.params;
+        const { email, token } = req.params;
         const { password } = req.body;
 
-        const oldUser = await User.findOne({ _id: id });
-        if (!oldUser) {
-            return res.json({ status: "User Not Exists!!" });
-        }
-        const secret = process.env.JWT_KEY + oldUser.password;
         try {
-            const verify = jwt.verify(token, secret);
-            const encryptedPassword = await bcrypt.hash(password, 10);
-            await User.updateOne(
-                {
-                    _id: id,
-                },
-                {
-                    $set: {
-                        password: encryptedPassword,
-                    },
-                }
-            );
+            const oldUser = await User.findOne({Email:email});
+            console.log(email)
+            if (!oldUser) {
+                return res.json({ status: "User Not Exists!!" });
+            }
 
-            res.render("../views/index", { email: verify.email, status: "verified" });
+            const secret = process.env.JWT_KEY + oldUser.password;
+            const verify = jwt.verify(token, secret);
+
+            const encryptedPassword = await bcrypt.hash(password, 10);
+            oldUser.Password = encryptedPassword;
+            await oldUser.save();
+            console.log(oldUser);
+            console.log(oldUser.Password);
+            console.log(encryptedPassword);
+
+            res.json({ status: "Password updated successfully" });
         } catch (error) {
             console.log(error);
             res.json({ status: "Something Went Wrong" });
         }
     },
-
 };
