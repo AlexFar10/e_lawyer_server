@@ -202,7 +202,7 @@ module.exports = {
 
         try {
             const oldUser = await User.findOne({Email:email});
-            console.log(email)
+
             if (!oldUser) {
                 return res.json({ status: "User Not Exists!!" });
             }
@@ -213,9 +213,6 @@ module.exports = {
             const encryptedPassword = await bcrypt.hash(password, 10);
             oldUser.Password = encryptedPassword;
             await oldUser.save();
-            console.log(oldUser);
-            console.log(oldUser.Password);
-            console.log(encryptedPassword);
 
             res.json({ status: "Password updated successfully" });
         } catch (error) {
