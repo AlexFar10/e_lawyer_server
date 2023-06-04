@@ -73,6 +73,7 @@ exports.createComplain = async (req, res) => {
             DateOfHandingOutVerbalProcess:req.body.DateOfHandingOutVerbalProcess,
             DateOfEvent:req.body.DateOfEvent,
             PayTheFine:req.body.PayTheFine,
+            PayTheFineSum:req.body.PayTheFineSum,
             Options:req.body.Options,
             DescriptionOfTheEventInVerbalProcess:req.body.DescriptionOfTheEventInVerbalProcess,
             DescriptionOfTheEventInPersonalOpinion:req.body.DescriptionOfTheEventInPersonalOpinion,

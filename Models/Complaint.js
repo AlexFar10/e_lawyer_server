@@ -105,6 +105,9 @@ const complaint = new mongoose.Schema({
         type: String,
         enum: ['DA', 'NU'],
     },
+    PayTheFineSum: {
+        type: String,
+    },
     Options: {
         type: String,
         enum: [
