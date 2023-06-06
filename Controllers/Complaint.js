@@ -31,6 +31,19 @@ exports.getComplainByUserId = async (req, res) => {
         });
     }
 };
+exports.getComplainByUserEmail = async (req, res) => {
+    try {
+
+        const complaint = await Complaint.find({ Email: req.params.email});
+console.log(complaint)
+        return res.send(complaint)
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            error: "Server Error",
+        });
+    }
+};
 exports.getComplainById = async (req, res) => {
     try {
         const complaint = await Complaint.findById(req.params.id);
@@ -151,6 +164,7 @@ exports.updateComplainByUserId = async (req, res) => {
         });
     }
 };
+
 exports.deleteComplain = async (req, res) => {
     try {
         const complaint = await Complaint.findByIdAndDelete(req.params.id);
