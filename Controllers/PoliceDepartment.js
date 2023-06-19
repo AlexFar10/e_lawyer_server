@@ -12,6 +12,18 @@ module.exports = {
             console.log(error.message)
         }
     },
+    findPoliceDepartmentByCity: async (req, res, next) => {
+        try {
+            const { city } = req.params; // Retrieve the city parameter
+            const result = await Product.findOne({ City:city }, { __v: 0 });
+            if (!result) {
+                return res.status(404).send({ message: 'Institution not found' });
+            }
+            res.send(result);
+        } catch (error) {
+            console.log(error.message);
+        }
+    },
 
     createNewPoliceDepartment: async (req, res, next) => {
         try {

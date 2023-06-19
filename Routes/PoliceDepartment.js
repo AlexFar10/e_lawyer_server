@@ -13,6 +13,7 @@ router.post('/',check_auth, PoliceController.createNewPoliceDepartment);
 
 //Get  PoliceDepartment by id
 router.get('/:id', PoliceController.findPoliceDepartmentById);
+router.get('/city/:city', PoliceController.findPoliceDepartmentByCity);
 
 //Update PoliceDepartment by id
 router.patch('/:id',check_auth, PoliceController.updatePoliceDepartment);
