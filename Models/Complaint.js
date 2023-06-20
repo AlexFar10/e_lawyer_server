@@ -67,7 +67,7 @@ const complaint = new mongoose.Schema({
     },
     PoliceAdr: {
         type: String,
-        required: true,
+
     },
     EventPlace: {
         type: String,
@@ -168,8 +168,8 @@ const complaint = new mongoose.Schema({
         enum: ['DA', 'NU'],
     },
     Accept: {
-        type: String,
-        enum: ['DA', 'NU'],
+        type: Boolean,
+        default: false,
     },
     Pay: {
         type: String,
